@@ -1,25 +1,34 @@
-import { groq } from "next-sanity";
+import { GetServerSideProps } from "next";
+
 import React from "react";
 import Navbar from "../components/Navbar";
-import { sanityClient } from "../sanity";
+import PostList from "../components/PostList";
 
-type Props = {};
-const query = groq`
-*[_type == 'scholarships']{
-  ...,
-  author->,
-  categories[]->
-} | order(_createdAt desc)[0..2]
-`;
+import { fetchRecentPosts } from "../utils/fetchRecentPosts";
 
-const Home = (props: Props) => {
-  // const recentPosts = await sanityClient.fetch(query);
+type Props = {
+  recentPosts: Post[];
+};
+
+const Home = ({ recentPosts }: Props) => {
   return (
     <div>
       <Navbar />
-      {/* {console.log(recentPosts)} */}
+
+      <main className="max-w-[900px] mx-auto">
+        <PostList posts={recentPosts} />
+      </main>
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const recentPosts: Post[] = await fetchRecentPosts();
+  return {
+    props: {
+      recentPosts,
+    },
+  };
+};
