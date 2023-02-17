@@ -90,7 +90,7 @@ export default Post;
 
 export const getStaticPaths = async () => {
   const query = groq`
-    *[_type=="scholarships"]{
+    *[_type=="scholarships" || _type=="grants"]{
  
         slug
     }
@@ -109,7 +109,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const query = groq`
-    *[_type=="scholarships" && slug.current == $slug][0]{
+    *[_type=="scholarships" || _type=="grants" && slug.current == $slug][0]{
 author->{
 name,
   image,

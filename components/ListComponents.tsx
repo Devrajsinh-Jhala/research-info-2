@@ -18,7 +18,7 @@ const ListComponents = ({ scholarships }: Props) => {
             onChange={(e) => setSearch(e.target.value)}
             className="shadow border rounded py-2 px-3 mt-1 block w-full focus:outline-none ring-yellow-500"
             type="text"
-            placeholder="Search scholarships by title..."
+            placeholder="Search by title..."
           />
         </label>
       </form>
