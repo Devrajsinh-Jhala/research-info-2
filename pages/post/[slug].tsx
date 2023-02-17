@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { GetStaticProps } from "next";
 import { groq } from "next-sanity";
+import Head from "next/head";
 import Image from "next/image";
 import React from "react";
 import Navbar from "../../components/Navbar";
@@ -14,6 +15,9 @@ type Props = {
 const Post = ({ post }: Props) => {
   return (
     <>
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <Navbar />
       <article className="px-10  pb-28">
         <section className="space-y-2 border border-[#f7ab0a] text-white">

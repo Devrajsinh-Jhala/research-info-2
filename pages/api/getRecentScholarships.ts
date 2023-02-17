@@ -4,20 +4,20 @@ import { groq } from "next-sanity";
 import { sanityClient } from "../../sanity";
 
 const query = groq`
-*[_type == 'scholarships' || _type == 'grants']{
+*[_type == 'scholarships']{
   ...,
   author->,
   categories[]->
 } | order(_createdAt desc)[0..2]
 `;
 type Data = {
-  recentPosts: Post[];
+  recentScholarships: Post[];
 };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const recentPosts: Post[] = await sanityClient.fetch(query);
-  res.status(200).json({ recentPosts });
+  const recentScholarships: Post[] = await sanityClient.fetch(query);
+  res.status(200).json({ recentScholarships });
 }

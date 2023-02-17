@@ -1,22 +1,32 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 import React from "react";
 import Navbar from "../components/Navbar";
 import PostList from "../components/PostList";
+import { fetchRecentGrants } from "../utils/fetchRecentGrants";
 
-import { fetchRecentPosts } from "../utils/fetchRecentPosts";
+import { fetchRecentScholarships } from "../utils/fetchRecentScholarships";
 
 type Props = {
-  recentPosts: Post[];
+  recentScholarships: Post[];
+  recentGrants: Post[];
 };
 
-const Home = ({ recentPosts }: Props) => {
+const Home = ({ recentScholarships, recentGrants }: Props) => {
   return (
     <div>
+      <Head>
+        <title>Research Info</title>
+      </Head>
       <Navbar />
 
       <main className="max-w-[900px] mx-auto">
-        <PostList posts={recentPosts} />
+        <p>Recent Scholarships:</p>
+        <PostList posts={recentScholarships} />
+
+        <p>Recent Grants:</p>
+        <PostList posts={recentGrants} />
       </main>
     </div>
   );
@@ -25,10 +35,12 @@ const Home = ({ recentPosts }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const recentPosts: Post[] = await fetchRecentPosts();
+  const recentScholarships: Post[] = await fetchRecentScholarships();
+  const recentGrants: Post[] = await fetchRecentGrants();
   return {
     props: {
-      recentPosts,
+      recentScholarships,
+      recentGrants,
     },
   };
 };
