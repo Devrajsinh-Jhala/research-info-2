@@ -1,6 +1,6 @@
 export const fetchAllScholarships = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllScholarships`
+    `https://research-info-2.vercel.app/api/getAllScholarships`
   );
   const data = await res.json();
   const scholarships: Post[] = data.scholarships;
