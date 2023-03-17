@@ -1,6 +1,6 @@
 export const fetchRecentGrants = async () => {
   const res = await fetch(
-    `https://research-info-2.vercel.app/api/getRecentGrants`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getRecentGrants`
   );
   const data = await res.json();
   const recentGrants: Post[] = data.recentGrants;
